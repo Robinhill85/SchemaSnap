@@ -45,11 +45,25 @@ function truncate(text: string, limit: number): string {
   return text.slice(0, limit) + "\n\n[Content truncated for analysis]";
 }
 
+function extractExistingJsonLd(html: string): string {
+  const blocks: string[] = [];
+  const regex = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    blocks.push(match[1].trim());
+  }
+  return blocks.length > 0
+    ? blocks.join("\n\n")
+    : "None found";
+}
+
 export async function auditPage(
   markdown: string,
   html: string
 ): Promise<AuditResult> {
-  // Prioritise markdown (more signal per token), give remaining budget to HTML
+  // Extract existing JSON-LD BEFORE truncation so it's never lost
+  const existingJsonLd = extractExistingJsonLd(html);
+
   const md = truncate(markdown, MAX_CHARS * 0.4);
   const ht = truncate(html, MAX_CHARS * 0.6);
 
@@ -61,7 +75,7 @@ export async function auditPage(
     messages: [
       {
         role: "user",
-        content: `Here is the page content to audit:\n\n--- MARKDOWN ---\n${md}\n\n--- HTML ---\n${ht}`,
+        content: `Here is the page content to audit:\n\n--- EXISTING STRUCTURED DATA (JSON-LD already on the page) ---\n${existingJsonLd}\n\n--- MARKDOWN ---\n${md}\n\n--- HTML ---\n${ht}`,
       },
     ],
     system: SYSTEM_PROMPT,
