@@ -18,18 +18,18 @@ export async function POST(req: NextRequest) {
     });
 
     const doc = await firecrawl.scrape(url, {
-      formats: ["markdown", "html"],
+      formats: ["markdown", "rawHtml"],
     });
 
-    if (!doc.markdown && !doc.html) {
+    if (!doc.markdown && !doc.rawHtml) {
       return NextResponse.json(
         { error: "Could not extract content from this page." },
         { status: 422 }
       );
     }
 
-    // Step 2: Audit with Claude
-    const result = await auditPage(doc.markdown ?? "", doc.html ?? "");
+    // Step 2: Audit with Claude (rawHtml preserves <script> JSON-LD tags)
+    const result = await auditPage(doc.markdown ?? "", doc.rawHtml ?? "");
 
     return NextResponse.json(result);
   } catch (err: unknown) {

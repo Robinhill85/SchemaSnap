@@ -20,9 +20,12 @@ I will give you the HTML and markdown content of a webpage. Your job is to:
 3. Generate a single, complete, valid JSON-LD script block that adds all missing schema
 
 Rules:
+- IMPORTANT: First check the HTML for existing <script type="application/ld+json"> blocks. If a schema type already exists in the page's JSON-LD, do NOT report it as missing. Only report types that are truly absent or significantly incomplete.
+- If the page already has good structured data coverage, say so — the diagnosis array can be empty or have fewer items.
 - Be specific to the actual content of the page — do not use placeholder values
 - Prioritise: Organization, FAQPage, WebPage, Service/Product, Person
 - JSON-LD must be valid and ready to paste into the site <head>
+- Only include NEW schema types in the generated JSON-LD — do not duplicate what already exists
 
 You MUST respond with ONLY raw JSON — no markdown fences, no explanation, no text before or after. Exactly this format:
 {"diagnosis":[{"schemaType":"Organization","explanation":"Your site is missing Organization markup...","impact":"high"}],"jsonLd":"<script type=\\"application/ld+json\\">\\n{...}\\n</script>"}
