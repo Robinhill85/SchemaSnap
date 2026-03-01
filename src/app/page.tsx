@@ -49,6 +49,7 @@ export default function Home() {
   const [result, setResult] = useState<AuditResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [googleCopied, setGoogleCopied] = useState(false);
 
   useEffect(() => {
     if (!loading) return;
@@ -97,12 +98,15 @@ export default function Home() {
     setTimeout(() => setCopied(false), 2000);
   }
 
-  function handleTestInGoogle() {
+  async function handleTestInGoogle() {
     if (!result) return;
     const html = `<!DOCTYPE html>\n<html>\n<head>\n${result.jsonLd}\n</head>\n<body></body>\n</html>`;
-    const encoded = encodeURIComponent(html);
+    await navigator.clipboard.writeText(html);
+    setCopied(false);
+    setGoogleCopied(true);
+    setTimeout(() => setGoogleCopied(false), 4000);
     window.open(
-      `https://search.google.com/test/rich-results/result?code=${encoded}`,
+      "https://search.google.com/test/rich-results",
       "_blank"
     );
   }
@@ -369,22 +373,47 @@ export default function Home() {
                   <div className="flex gap-2 shrink-0">
                   <button
                     onClick={handleTestInGoogle}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-accent-blue to-accent-purple px-3.5 py-2 text-xs font-medium text-white hover:brightness-110 transition-all"
+                    className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
+                      googleCopied
+                        ? "bg-emerald-500/15 text-emerald-300"
+                        : "bg-gradient-to-r from-accent-blue to-accent-purple text-white hover:brightness-110"
+                    }`}
                   >
-                    <svg
-                      className="h-3.5 w-3.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                      />
-                    </svg>
-                    Test in Google
+                    {googleCopied ? (
+                      <>
+                        <svg
+                          className="h-3.5 w-3.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
+                        Copied — paste in Code tab
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          className="h-3.5 w-3.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                          />
+                        </svg>
+                        Test in Google
+                      </>
+                    )}
                   </button>
                   <button
                     onClick={handleCopy}
