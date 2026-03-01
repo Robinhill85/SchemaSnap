@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Firecrawl from "@mendable/firecrawl-js";
 import { auditPage } from "@/lib/audit";
 
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
   try {
     const { url } = await req.json();
