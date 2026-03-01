@@ -113,6 +113,22 @@ export async function auditPage(
     throw new Error("Could not find matching closing brace in Claude response");
   }
 
-  const parsed: AuditResult = JSON.parse(cleaned.slice(start, end + 1));
+  // Fix common schema.org @type typos Claude sometimes produces
+  const jsonStr = cleaned.slice(start, end + 1).replace(
+    /"@type"\s*:\s*"(Quon|Questin|Queston|Qestion|Anwser|Anser)"/g,
+    (_, typo) => {
+      const fixes: Record<string, string> = {
+        Quon: "Question",
+        Questin: "Question",
+        Queston: "Question",
+        Qestion: "Question",
+        Anwser: "Answer",
+        Anser: "Answer",
+      };
+      return `"@type": "${fixes[typo] || typo}"`;
+    }
+  );
+
+  const parsed: AuditResult = JSON.parse(jsonStr);
   return parsed;
 }
