@@ -97,6 +97,16 @@ export default function Home() {
     setTimeout(() => setCopied(false), 2000);
   }
 
+  function handleTestInGoogle() {
+    if (!result) return;
+    const html = `<!DOCTYPE html>\n<html>\n<head>\n${result.jsonLd}\n</head>\n<body></body>\n</html>`;
+    const encoded = encodeURIComponent(html);
+    window.open(
+      `https://search.google.com/test/rich-results/result?code=${encoded}`,
+      "_blank"
+    );
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col">
       <div className="starfield" />
@@ -356,9 +366,29 @@ export default function Home() {
                       </code>
                     </p>
                   </div>
+                  <div className="flex gap-2 shrink-0">
+                  <button
+                    onClick={handleTestInGoogle}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-accent-blue to-accent-purple px-3.5 py-2 text-xs font-medium text-white hover:brightness-110 transition-all"
+                  >
+                    <svg
+                      className="h-3.5 w-3.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                    Test in Google
+                  </button>
                   <button
                     onClick={handleCopy}
-                    className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all shrink-0 ${
+                    className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
                       copied
                         ? "bg-emerald-500/15 text-emerald-300"
                         : "bg-white/10 text-white/70 hover:bg-white/15 hover:text-white"
@@ -400,6 +430,7 @@ export default function Home() {
                       </>
                     )}
                   </button>
+                  </div>
                 </div>
                 <pre className="mt-4 flex-1 overflow-x-auto rounded-xl bg-black/40 border border-white/5 p-5 text-[13px] leading-relaxed text-accent-cyan/80 font-mono">
                   <code>{result.jsonLd}</code>
