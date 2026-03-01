@@ -16,20 +16,20 @@ interface AuditResult {
 const impactConfig = {
   high: {
     label: "High impact",
-    bg: "bg-red-500/15",
-    text: "text-red-300",
+    bg: "bg-red-500/20",
+    text: "text-red-200",
     dot: "bg-red-400",
   },
   medium: {
     label: "Medium",
-    bg: "bg-amber-500/15",
-    text: "text-amber-300",
+    bg: "bg-amber-500/20",
+    text: "text-amber-200",
     dot: "bg-amber-400",
   },
   low: {
     label: "Low",
-    bg: "bg-emerald-500/15",
-    text: "text-emerald-300",
+    bg: "bg-emerald-500/20",
+    text: "text-emerald-200",
     dot: "bg-emerald-400",
   },
 };
@@ -117,11 +117,11 @@ export default function Home() {
 
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Header */}
-        <header className="pt-20 pb-10 text-center px-4">
-          <div className="inline-flex items-center gap-2 mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm">
-            <div className="h-5 w-5 rounded-md bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
+        <header className="pt-16 pb-8 text-center px-4">
+          <div className="inline-flex items-center gap-2.5 mb-5 rounded-full border border-white/10 bg-white/5 px-5 py-2 backdrop-blur-sm">
+            <div className="h-6 w-6 rounded-md bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
               <svg
-                className="h-3 w-3 text-white"
+                className="h-3.5 w-3.5 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2.5}
@@ -134,17 +134,17 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <span className="text-xs font-medium text-white/60 tracking-wide uppercase">
+            <span className="text-sm font-medium text-white/70 tracking-wide uppercase">
               Schema Audit Tool
             </span>
           </div>
-          <h1 className="text-5xl font-bold tracking-tight text-white">
+          <h1 className="text-6xl font-bold tracking-tight text-white">
             Schema
             <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
               Snap
             </span>
           </h1>
-          <p className="mt-4 text-lg text-white/50 max-w-lg mx-auto leading-relaxed">
+          <p className="mt-5 text-xl text-white/60 max-w-lg mx-auto leading-relaxed">
             Find missing structured data on any page and get ready-to-paste
             JSON-LD code for AI search visibility.
           </p>
@@ -156,9 +156,9 @@ export default function Home() {
           className="mx-auto w-full max-w-2xl px-4 flex gap-3"
         >
           <div className="relative flex-1">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-5">
               <svg
-                className="h-4 w-4 text-white/30"
+                className="h-5 w-5 text-white/40"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
@@ -178,34 +178,34 @@ export default function Home() {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               disabled={loading}
-              className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-4 py-3.5 text-base text-white placeholder:text-white/30 shadow-lg shadow-black/20 backdrop-blur-sm focus:border-accent-blue/50 focus:outline-none focus:ring-2 focus:ring-accent-blue/20 disabled:opacity-60 transition-all"
+              className="w-full rounded-xl border border-white/15 bg-white/5 pl-13 pr-4 py-4 text-lg text-white placeholder:text-white/30 shadow-lg shadow-black/20 backdrop-blur-sm focus:border-accent-blue/50 focus:outline-none focus:ring-2 focus:ring-accent-blue/20 disabled:opacity-60 transition-all"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent-blue/20 hover:shadow-accent-blue/30 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-accent-blue/40 focus:ring-offset-2 focus:ring-offset-navy-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
+            className="rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple px-8 py-4 text-base font-semibold text-white shadow-lg shadow-accent-blue/20 hover:shadow-accent-blue/30 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-accent-blue/40 focus:ring-offset-2 focus:ring-offset-navy-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
           >
             {loading ? "Auditing..." : "Audit my site"}
           </button>
         </form>
 
-        <p className="mt-10 text-center text-lg font-semibold tracking-widest uppercase text-white/20">
+        <p className="mt-10 text-center text-xl font-semibold tracking-widest uppercase text-white/20">
           AI Native Marketing Tool
         </p>
 
         {/* Loading State */}
         {loading && (
           <div className="mt-16 flex flex-col items-center gap-6 px-4">
-            <div className="relative h-10 w-10">
+            <div className="relative h-12 w-12">
               <div className="absolute inset-0 rounded-full border-2 border-white/10" />
               <div className="absolute inset-0 animate-spin rounded-full border-2 border-transparent border-t-accent-blue" />
             </div>
-            <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-col items-center gap-3.5">
               {loadingSteps.map((step, i) => (
                 <div
                   key={step}
-                  className={`flex items-center gap-2 text-sm transition-all duration-500 ${
+                  className={`flex items-center gap-2.5 text-base transition-all duration-500 ${
                     i < loadingStep
                       ? "text-white/40"
                       : i === loadingStep
@@ -215,7 +215,7 @@ export default function Home() {
                 >
                   {i < loadingStep ? (
                     <svg
-                      className="h-3.5 w-3.5 text-emerald-400"
+                      className="h-4 w-4 text-emerald-400"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={2.5}
@@ -228,9 +228,9 @@ export default function Home() {
                       />
                     </svg>
                   ) : i === loadingStep ? (
-                    <div className="h-1.5 w-1.5 rounded-full bg-accent-blue animate-pulse-slow" />
+                    <div className="h-2 w-2 rounded-full bg-accent-blue animate-pulse-slow" />
                   ) : (
-                    <div className="h-1.5 w-1.5 rounded-full bg-white/20" />
+                    <div className="h-2 w-2 rounded-full bg-white/20" />
                   )}
                   {step}
                 </div>
@@ -242,9 +242,9 @@ export default function Home() {
         {/* Error State */}
         {error && (
           <div className="mx-auto mt-10 max-w-2xl px-4">
-            <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm text-red-300 flex items-start gap-3 backdrop-blur-sm">
+            <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-6 py-5 text-base text-red-200 flex items-start gap-3 backdrop-blur-sm">
               <svg
-                className="h-5 w-5 text-red-400 shrink-0 mt-0.5"
+                className="h-6 w-6 text-red-400 shrink-0 mt-0.5"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -257,8 +257,8 @@ export default function Home() {
                 />
               </svg>
               <div>
-                <p className="font-medium text-red-200">Audit failed</p>
-                <p className="mt-1 text-red-300/80">{error}</p>
+                <p className="font-semibold text-red-100 text-lg">Audit failed</p>
+                <p className="mt-1 text-red-200/80">{error}</p>
               </div>
             </div>
           </div>
@@ -268,13 +268,13 @@ export default function Home() {
         {result && (
           <div className="mx-auto mt-10 w-full max-w-6xl px-4 pb-8">
             {/* Audited URL badge */}
-            <div className="mb-5 text-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-300 backdrop-blur-sm">
+            <div className="mb-6 text-center">
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-5 py-2 text-base text-emerald-200 backdrop-blur-sm">
                 <svg
-                  className="h-3.5 w-3.5"
+                  className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   stroke="currentColor"
                 >
                   <path
@@ -284,7 +284,7 @@ export default function Home() {
                   />
                 </svg>
                 Audit complete for{" "}
-                <span className="font-medium text-emerald-200">
+                <span className="font-semibold text-emerald-100">
                   {auditedUrl}
                 </span>
               </span>
@@ -292,10 +292,10 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {/* Left: Diagnosis */}
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
-                <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-7 backdrop-blur-sm">
+                <h2 className="text-xl font-semibold text-white flex items-center gap-2.5">
                   <svg
-                    className="h-5 w-5 text-accent-blue"
+                    className="h-6 w-6 text-accent-blue"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
@@ -309,32 +309,32 @@ export default function Home() {
                   </svg>
                   What&apos;s missing
                 </h2>
-                <p className="mt-1 text-sm text-white/40">
+                <p className="mt-1.5 text-base text-white/50">
                   {result.diagnosis.length} issue
                   {result.diagnosis.length !== 1 && "s"} found
                 </p>
-                <ol className="mt-5 space-y-4">
+                <ol className="mt-6 space-y-5">
                   {result.diagnosis.map((item, i) => {
                     const impact = impactConfig[item.impact];
                     return (
                       <li
                         key={i}
-                        className="border-b border-white/5 pb-4 last:border-0 last:pb-0"
+                        className="border-b border-white/5 pb-5 last:border-0 last:pb-0"
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <span className="font-semibold text-white">
+                          <span className="text-lg font-semibold text-white">
                             {i + 1}. {item.schemaType}
                           </span>
                           <span
-                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${impact.bg} ${impact.text} shrink-0`}
+                            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-sm font-medium ${impact.bg} ${impact.text} shrink-0`}
                           >
                             <span
-                              className={`h-1.5 w-1.5 rounded-full ${impact.dot}`}
+                              className={`h-2 w-2 rounded-full ${impact.dot}`}
                             />
                             {impact.label}
                           </span>
                         </div>
-                        <p className="mt-1.5 text-sm text-white/60 leading-relaxed">
+                        <p className="mt-2 text-base text-white/60 leading-relaxed">
                           {item.explanation}
                         </p>
                       </li>
@@ -344,12 +344,12 @@ export default function Home() {
               </div>
 
               {/* Right: Generated Code */}
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm flex flex-col">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-7 backdrop-blur-sm flex flex-col">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                    <h2 className="text-xl font-semibold text-white flex items-center gap-2.5">
                       <svg
-                        className="h-5 w-5 text-accent-purple"
+                        className="h-6 w-6 text-accent-purple"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
@@ -363,9 +363,9 @@ export default function Home() {
                       </svg>
                       Your fix
                     </h2>
-                    <p className="mt-1 text-sm text-white/40">
+                    <p className="mt-1.5 text-base text-white/50">
                       Paste into your site{" "}
-                      <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-white/60 font-mono">
+                      <code className="rounded bg-white/10 px-1.5 py-0.5 text-sm text-white/70 font-mono">
                         &lt;head&gt;
                       </code>
                     </p>
@@ -373,16 +373,16 @@ export default function Home() {
                   <div className="flex gap-2 shrink-0">
                   <button
                     onClick={handleTestInGoogle}
-                    className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
+                    className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
                       googleCopied
-                        ? "bg-emerald-500/15 text-emerald-300"
+                        ? "bg-emerald-500/15 text-emerald-200"
                         : "bg-gradient-to-r from-accent-blue to-accent-purple text-white hover:brightness-110"
                     }`}
                   >
                     {googleCopied ? (
                       <>
                         <svg
-                          className="h-3.5 w-3.5"
+                          className="h-4 w-4"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={2}
@@ -399,7 +399,7 @@ export default function Home() {
                     ) : (
                       <>
                         <svg
-                          className="h-3.5 w-3.5"
+                          className="h-4 w-4"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={2}
@@ -417,16 +417,16 @@ export default function Home() {
                   </button>
                   <button
                     onClick={handleCopy}
-                    className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-all ${
+                    className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
                       copied
-                        ? "bg-emerald-500/15 text-emerald-300"
-                        : "bg-white/10 text-white/70 hover:bg-white/15 hover:text-white"
+                        ? "bg-emerald-500/15 text-emerald-200"
+                        : "bg-white/10 text-white/80 hover:bg-white/15 hover:text-white"
                     }`}
                   >
                     {copied ? (
                       <>
                         <svg
-                          className="h-3.5 w-3.5"
+                          className="h-4 w-4"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={2}
@@ -443,7 +443,7 @@ export default function Home() {
                     ) : (
                       <>
                         <svg
-                          className="h-3.5 w-3.5"
+                          className="h-4 w-4"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={2}
@@ -461,12 +461,12 @@ export default function Home() {
                   </button>
                   </div>
                 </div>
-                <pre className="mt-4 flex-1 overflow-x-auto rounded-xl bg-black/40 border border-white/5 p-5 text-[13px] leading-relaxed text-accent-cyan/80 font-mono">
+                <pre className="mt-5 flex-1 overflow-x-auto rounded-xl bg-black/40 border border-white/5 p-6 text-sm leading-relaxed text-accent-cyan font-mono">
                   <code>{result.jsonLd}</code>
                 </pre>
-                <p className="mt-3 text-xs text-white/30 flex items-center gap-1">
+                <p className="mt-4 text-sm text-white/40 flex items-center gap-1.5">
                   <svg
-                    className="h-3 w-3"
+                    className="h-4 w-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
@@ -486,7 +486,7 @@ export default function Home() {
         )}
 
         {/* Footer */}
-        <footer className="mt-auto border-t border-white/5 py-6 text-center text-xs text-white/30">
+        <footer className="mt-auto border-t border-white/5 py-6 text-center text-sm text-white/40">
           <p>
             Validate your markup with the{" "}
             <a
