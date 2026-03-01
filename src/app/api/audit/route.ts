@@ -47,8 +47,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
-      { error: "Failed to audit the page. Check the URL and try again." },
+      { error: `Failed to audit the page: ${message}` },
       { status: 500 }
     );
   }
