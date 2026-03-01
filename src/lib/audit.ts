@@ -67,17 +67,50 @@ export async function auditPage(
   const raw =
     message.content[0].type === "text" ? message.content[0].text : "";
 
-  // Strip markdown code fences and extract the JSON object
+  // Strip markdown code fences
   const cleaned = raw
     .replace(/^```(?:json)?\s*\n?/i, "")
     .replace(/\n?```\s*$/i, "")
     .trim();
 
-  // Find the outermost JSON object in case Claude adds trailing text
+  // Extract the outermost JSON object by tracking brace depth + string context
   const start = cleaned.indexOf("{");
-  const end = cleaned.lastIndexOf("}");
-  if (start === -1 || end === -1) {
+  if (start === -1) {
     throw new Error("Could not find JSON in Claude response");
+  }
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  let end = -1;
+
+  for (let i = start; i < cleaned.length; i++) {
+    const ch = cleaned[i];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (ch === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
+    if (inString) continue;
+    if (ch === "{") depth++;
+    if (ch === "}") {
+      depth--;
+      if (depth === 0) {
+        end = i;
+        break;
+      }
+    }
+  }
+
+  if (end === -1) {
+    throw new Error("Could not find matching closing brace in Claude response");
   }
 
   const parsed: AuditResult = JSON.parse(cleaned.slice(start, end + 1));
