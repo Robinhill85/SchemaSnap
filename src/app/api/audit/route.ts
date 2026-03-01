@@ -31,7 +31,9 @@ export async function POST(req: NextRequest) {
     // Step 2: Audit with Claude (rawHtml preserves <script> JSON-LD tags)
     const result = await auditPage(doc.markdown ?? "", doc.rawHtml ?? "");
 
-    return NextResponse.json(result);
+    const response = NextResponse.json(result);
+    response.headers.set("Cache-Control", "no-store");
+    return response;
   } catch (err: unknown) {
     console.error("Audit API error:", err);
 
