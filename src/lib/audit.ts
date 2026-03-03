@@ -31,8 +31,10 @@ Rules:
   - "areaServed" requires a Place, AdministrativeArea, or GeoShape object, not a plain string
   - "audience" requires an Audience object, not a plain string
   - "knowsAbout" accepts strings or Thing objects (strings are fine here)
+  - For services, use "@type": "Service" (NOT "ProfessionalService"). Do NOT use the properties "serviceType" or "provider" on any service type — they cause validator warnings. Instead, link services to their provider via the Organization's "hasOfferCatalog" or simply omit the provider link.
   - When in doubt, use simple well-known properties. Avoid obscure or nested schema types like "hasOccupation" unless clearly needed.
   - Prefer fewer, cleaner properties over comprehensive but error-prone ones
+  - The output must pass https://validator.schema.org/ with ZERO errors and ZERO warnings
 
 You MUST respond with ONLY raw JSON — no markdown fences, no explanation, no text before or after. Exactly this format:
 {"diagnosis":[{"schemaType":"Organization","explanation":"Your site is missing Organization markup...","impact":"high"}],"jsonLd":"<script type=\\"application/ld+json\\">\\n{...}\\n</script>"}
