@@ -26,6 +26,13 @@ Rules:
 - Prioritise: Organization, FAQPage, WebPage, Service/Product, Person
 - JSON-LD must be valid and ready to paste into the site <head>
 - Only include NEW schema types in the generated JSON-LD — do not duplicate what already exists
+- CRITICAL: Only use properties that are valid for each schema.org type. Common mistakes to avoid:
+  - "occupationLocation" requires an AdministrativeArea object, not a plain string
+  - "areaServed" requires a Place, AdministrativeArea, or GeoShape object, not a plain string
+  - "audience" requires an Audience object, not a plain string
+  - "knowsAbout" accepts strings or Thing objects (strings are fine here)
+  - When in doubt, use simple well-known properties. Avoid obscure or nested schema types like "hasOccupation" unless clearly needed.
+  - Prefer fewer, cleaner properties over comprehensive but error-prone ones
 
 You MUST respond with ONLY raw JSON — no markdown fences, no explanation, no text before or after. Exactly this format:
 {"diagnosis":[{"schemaType":"Organization","explanation":"Your site is missing Organization markup...","impact":"high"}],"jsonLd":"<script type=\\"application/ld+json\\">\\n{...}\\n</script>"}

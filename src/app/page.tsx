@@ -106,7 +106,7 @@ export default function Home() {
     setGoogleCopied(true);
     setTimeout(() => setGoogleCopied(false), 4000);
     window.open(
-      "https://search.google.com/test/rich-results",
+      "https://validator.schema.org/",
       "_blank"
     );
   }
@@ -394,7 +394,7 @@ export default function Home() {
                             d="m4.5 12.75 6 6 9-13.5"
                           />
                         </svg>
-                        Copied — paste in Code tab
+                        Copied — paste in Markup tab
                       </>
                     ) : (
                       <>
@@ -411,7 +411,7 @@ export default function Home() {
                             d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
                           />
                         </svg>
-                        Test in Google
+                        Validate Schema
                       </>
                     )}
                   </button>
@@ -490,12 +490,12 @@ export default function Home() {
           <p>
             Validate your markup with the{" "}
             <a
-              href="https://search.google.com/test/rich-results"
+              href="https://validator.schema.org/"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-white/60 transition-colors"
             >
-              Google Rich Results Test
+              Schema Markup Validator
             </a>
           </p>
           <p className="mt-1">Built live on AI Native Marketing with Claude</p>
