@@ -80,7 +80,8 @@ export async function auditPage(
   const anthropic = new Anthropic();
 
   const message = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    // claude-sonnet-4-20250514 retired 2026-06-15 (API 404s); swapped 2026-08-07.
+    model: "claude-sonnet-5",
     max_tokens: 4096,
     messages: [
       {
